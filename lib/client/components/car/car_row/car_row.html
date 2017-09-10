@@ -1,0 +1,18 @@
+<span class="cell">{{car.id}}</span>
+<template [ngIf]="!carTitleEditMode">
+    <span class="cell" (dblclick)="ondblclick($event)">{{car.title}}</span>
+</template>
+<template [ngIf]="carTitleEditMode">
+    <span class="cell">
+        <material-input
+            *ngIf="!inProgress"
+            floatingLabel
+            label="Title"
+            [(ngModel)]="car.title"
+            (blur)="onTitleBlur($event)"
+        ></material-input>
+        <material-progress *ngIf="inProgress" [indeterminate]="true"></material-progress>
+    </span>
+</template>
+<span class="cell">{{car.classification}}</span>
+<span class="cell delete_button" (click)="onDeleteBtnClick($event)">X</span>
