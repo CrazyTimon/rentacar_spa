@@ -1,4 +1,7 @@
-class ApiEntity {
-  ApiEntity.fromJson(Map map);
-  Map<String, dynamic> addRequestParams;
+abstract class Entity {
+  int id;
+
+  Map<String, dynamic> get addRequestParams;
+
+  Map<String, dynamic> get updateRequestParams;
 }

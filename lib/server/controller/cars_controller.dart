@@ -42,13 +42,17 @@ class CarsController extends HTTPController {
   @httpPut
   Future<Response> updateCar(
     @HTTPPath('carId') int carId,
-    @HTTPQuery('title') String title
+    @HTTPQuery('title') String title,
+    @HTTPQuery('classificationId') int classificationId
   ) async {
     Car car;
     try {
-      Query<Car> query = new Query<Car>()
-        ..values.title = title
-        ..where.id = whereEqualTo(carId);
+      IClassification cls = await _getCls(classificationId);
+      Query<Car> query = new Query<Car>();
+      query.values
+        ..title = title
+        ..classification = cls;
+      query.where.id = whereEqualTo(carId);
       car = await query.updateOne();
     } catch(exception, stackTrace) {
       print(exception);
