@@ -32,6 +32,7 @@ class CarsController extends HTTPController {
       query.values
         ..classification = cls
         ..title = title;
+
       databaseQuestions = await query.insert();
     } catch(exception, stackTrace) {
       print(exception);
@@ -54,6 +55,7 @@ class CarsController extends HTTPController {
         ..title = title
         ..classification = cls;
       query.where.id = whereEqualTo(carId);
+
       car = await query.updateOne();
     } catch(exception, stackTrace) {
       print(exception);
@@ -76,24 +78,11 @@ class CarsController extends HTTPController {
     return new Response.ok(deletedCount);
   }
 
-  Future<Car> _getCarQuery(int id) async {
-    Car car;
-    try {
-      Query<Car> query = new Query<Car>()
-        ..values.id = id;
-      car = await query.fetchOne();
-    } catch(exception, stackTrace) {
-      print(exception);
-      print(stackTrace);
-    }
-    return car;
-  }
-
   Future<Classification> _getCls(int id) async {
     Classification cls;
     try {
       Query<Classification> query = new Query<Classification>()
-        ..values.id = id;
+        ..where.id = whereEqualTo(id);
       cls = await query.fetchOne();
     } catch(exception, stackTrace) {
       print(exception);
