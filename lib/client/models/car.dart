@@ -4,7 +4,7 @@ import 'package:rentacar_spa/interfaces/classification.dart';
 class Car implements ICar {
 
   @override
-  IClassification classification;
+  int classificationId;
 
   @override
   Car();
@@ -12,6 +12,10 @@ class Car implements ICar {
   Car.fromJson(Map map) {
     id = map['id'];
     title = map['title'];
+    //TODO get from CLS storage
+    if (map['classification'] != null) {
+      classificationId = map['classification']['id'];
+    }
   }
 
   @override
@@ -19,4 +23,17 @@ class Car implements ICar {
 
   @override
   String title;
+
+  @override
+  Map<String, dynamic> get addRequestParams => {
+    'title': title,
+    'classificationId': classificationId.toString()
+  };
+
+  @override
+  Map<String, dynamic> get updateRequestParams => {
+    //TODO optimize it, need to send only changed field
+    'title': title,
+    'classificationId': classificationId.toString()
+  };
 }

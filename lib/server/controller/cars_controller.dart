@@ -10,7 +10,8 @@ class CarsController extends HTTPController {
   Future<Response> getCars() async {
     var cars;
     try {
-      var query = new Query<Car>();
+      var query = new Query<Car>()
+        ..join(object: (car) => car.classification);
       cars = await query.fetch();
     } catch(exception, stackTrace) {
        print(exception);
@@ -31,6 +32,7 @@ class CarsController extends HTTPController {
       query.values
         ..classification = cls
         ..title = title;
+
       databaseQuestions = await query.insert();
     } catch(exception, stackTrace) {
       print(exception);
@@ -42,13 +44,18 @@ class CarsController extends HTTPController {
   @httpPut
   Future<Response> updateCar(
     @HTTPPath('carId') int carId,
-    @HTTPQuery('title') String title
+    @HTTPQuery('title') String title,
+    @HTTPQuery('classificationId') int classificationId
   ) async {
     Car car;
     try {
-      Query<Car> query = new Query<Car>()
-        ..values.title = title
-        ..where.id = whereEqualTo(carId);
+      IClassification cls = await _getCls(classificationId);
+      Query<Car> query = new Query<Car>();
+      query.values
+        ..title = title
+        ..classification = cls;
+      query.where.id = whereEqualTo(carId);
+
       car = await query.updateOne();
     } catch(exception, stackTrace) {
       print(exception);
@@ -71,24 +78,11 @@ class CarsController extends HTTPController {
     return new Response.ok(deletedCount);
   }
 
-  Future<Car> _getCarQuery(int id) async {
-    Car car;
-    try {
-      Query<Car> query = new Query<Car>()
-        ..values.id = id;
-      car = await query.fetchOne();
-    } catch(exception, stackTrace) {
-      print(exception);
-      print(stackTrace);
-    }
-    return car;
-  }
-
   Future<Classification> _getCls(int id) async {
     Classification cls;
     try {
       Query<Classification> query = new Query<Classification>()
-        ..values.id = id;
+        ..where.id = whereEqualTo(id);
       cls = await query.fetchOne();
     } catch(exception, stackTrace) {
       print(exception);

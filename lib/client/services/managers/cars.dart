@@ -1,15 +1,16 @@
 import 'dart:async';
-import 'package:rentacar_spa/client/services/api/car.dart';
+import 'package:angular2/angular2.dart';
+import 'package:http/browser_client.dart';
+import 'package:rentacar_spa/client/services/api/base_api.dart';
 import 'package:rentacar_spa/interfaces/car.dart';
 
+@Injectable()
 class CarManager {
-  final CarService _api;
+  final BaseApi<ICar> _api;
+  final BrowserClient _http;
 
-  CarManager(this._api);
-
-  List<ICar> _cars = [];
-
-  List<ICar> get cars => _cars;
+  CarManager(this._http):
+    _api = new BaseApi<ICar>(_http);
 
   Future getAll() => _api.getAll();
 

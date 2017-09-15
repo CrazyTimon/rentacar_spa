@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:html';
 import 'package:angular2/angular2.dart';
 import 'package:rentacar_spa/client/components/car/car_row/car_row.dart';
+import 'package:rentacar_spa/client/components/classification_selector/classification_selector.dart';
 import 'package:rentacar_spa/client/models/car.dart';
 import 'package:rentacar_spa/client/models/classification.dart';
 import 'package:rentacar_spa/client/services/managers/cars.dart';
@@ -20,7 +21,8 @@ import 'package:rentacar_spa/interfaces/classification.dart';
     MaterialButtonComponent,
     MaterialFabComponent,
     GlyphComponent,
-    CarRowComponent
+    CarRowComponent,
+    ClassificationSelectorComponent
   ]
   // providers: const [
   //   CarApi,
@@ -39,8 +41,13 @@ class CarComponent {
   List<IClassification> classifications;
 
   CarComponent(this._carManager, this._clsManager) {
-    _fetchCars();
-    _fetchClassifications();
+    _fetchData();
+  }
+
+  Future _fetchData() async {
+    await _fetchCars();
+    await _fetchClassifications();
+    isLoaded = true;
   }
 
   void onCardDeleted(ICar car) {
@@ -63,12 +70,16 @@ class CarComponent {
     _fetchClassifications();
   }
 
+  void onChanged(IClassification selectedCls) {
+    newCar.classificationId = selectedCls.id;
+  }
+
   Future _fetchCars() async {
     cars = await _carManager.getAll();
   }
 
   Future _fetchClassifications() async {
-    classifications = await _clsManager.getAll();
+    classifications = await _clsManager.getAll(true);
   }
 
   Future _addCar(ICar car) async {

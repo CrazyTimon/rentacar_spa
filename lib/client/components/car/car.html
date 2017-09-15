@@ -1,41 +1,45 @@
-<div class="row">
-  <label>Car Name: </label>
-  <input [(ngModel)]="newCar.title" placeholder="name">
+<div *ngIf="isLoaded">
+  <div class="row">
+    <label>Car Name: </label>
+    <input [(ngModel)]="newCar.title" placeholder="name">
+    <classification-selector
+        (onChange)="onChanged($event)"
+    ></classification-selector>
+  </div>
+  <div class="row">
+    <material-button (click)="onCreateClick($event)" raised>Add car</material-button>
+    <material-button (click)="onFetchClick($event)" raised class="red">FETCH CARS</material-button>
+  </div>
+  <div *ngFor="let car of cars;">
+    <car-row
+      [car]="car"
+      (onDeleted)="onCardDeleted($event)"
+    ></car-row>
+  </div>
+  <div class="row">
+    <label>Classification: </label>
+    <input [(ngModel)]="newClassification.title" placeholder="Classification.title">
+    <input [(ngModel)]="newClassification.description" placeholder="Classification.description">
+  </div>
 
+  <div class="row">
+    <material-button (click)="onCreateClsClick($event)" raised>ADD CLASSIFICATION</material-button>
+    <material-button (click)="onFetchClsClick($event)" raised class="red">FETCH CLASSIFICATION</material-button>
+  </div>
+  <table class="highlight">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>title</th>
+        <th>description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cls of classifications;">
+        <td>{{cls.id}}</td>
+        <td>{{cls.title}}</td>
+        <td>{{cls.description}}</td>
+      </tr>
+    <tbody>
+  </table>
 </div>
-<div class="row">
-  <material-button (click)="onCreateClick($event)" raised>Add car</material-button>
-  <material-button (click)="onFetchClick($event)" raised class="red">FETCH CARS</material-button>
-</div>
-<div *ngFor="let car of cars;">
-  <car-row
-    [car]="car"
-    (onDeleted)="onCardDeleted($event)"
-  ></car-row>
-</div>
-<div class="row">
-  <label>Classification: </label>
-  <input [(ngModel)]="newClassification.title" placeholder="Classification.title">
-  <input [(ngModel)]="newClassification.description" placeholder="Classification.description">
-</div>
-
-<div class="row">
-  <material-button (click)="onCreateClsClick($event)" raised>Add car</material-button>
-  <material-button (click)="onFetchClsClick($event)" raised class="red">FETCH CLASSIFICATION</material-button>
-</div>
-<table class="highlight">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>title</th>
-      <th>description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let cls of classifications;">
-      <td>{{cls.id}}</td>
-      <td>{{cls.title}}</td>
-      <td>{{cls.description}}</td>
-    </tr>
-  <tbody>
-</table>

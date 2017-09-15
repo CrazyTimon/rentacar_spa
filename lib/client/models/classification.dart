@@ -17,4 +17,17 @@ class Classification extends IClassification {
 
   @override
   String description;
+
+  @override
+  Map<String, dynamic> get addRequestParams => {
+    'title': title,
+    'description': description
+  };
+
+  @override
+  Map<String, dynamic> get updateRequestParams => {
+    'title': title,
+    'id': id,
+    'description': description
+  };
 }
