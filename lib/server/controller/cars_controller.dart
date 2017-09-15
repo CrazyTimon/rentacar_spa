@@ -10,7 +10,8 @@ class CarsController extends HTTPController {
   Future<Response> getCars() async {
     var cars;
     try {
-      var query = new Query<Car>();
+      var query = new Query<Car>()
+        ..join(object: (car) => car.classification);
       cars = await query.fetch();
     } catch(exception, stackTrace) {
        print(exception);

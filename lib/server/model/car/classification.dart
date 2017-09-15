@@ -12,5 +12,5 @@ class _Classification {
 
   String description;
 
-  Car car;
+  ManagedSet<Car> car;
 }

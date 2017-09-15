@@ -26,9 +26,12 @@ class BaseApi<T extends Entity> {
   Future<List<T>> getAll() async {
     Response response = await _http.get(_dataSyncUrl);
     List<Map<String, dynamic>> responseDecoded = JSON.decode(response.body);
-    Iterable<Entity> convertedResponse = responseDecoded.map(
-      (Map<String, dynamic> value) => _ApiFactory.factory(T, value)
-    );
+    Iterable<Entity> convertedResponse = [];
+    if (responseDecoded.isNotEmpty) {
+      convertedResponse = responseDecoded.map(
+        (Map<String, dynamic> value) => _ApiFactory.factory(T, value)
+      );
+    }
     return convertedResponse.toList();
   }
 
