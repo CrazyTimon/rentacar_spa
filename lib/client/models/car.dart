@@ -1,5 +1,4 @@
 import 'package:rentacar_spa/interfaces/car.dart';
-import 'package:rentacar_spa/interfaces/classification.dart';
 
 class Car implements ICar {
 
@@ -9,12 +8,18 @@ class Car implements ICar {
   @override
   Car();
 
+  @override
+  int gearboxId;
+
   Car.fromJson(Map map) {
     id = map['id'];
     title = map['title'];
     //TODO get from CLS storage
     if (map['classification'] != null) {
       classificationId = map['classification']['id'];
+    }
+    if (map['gearbox'] != null) {
+      gearboxId = map['gearbox']['id'];
     }
   }
 
@@ -27,13 +32,16 @@ class Car implements ICar {
   @override
   Map<String, dynamic> get addRequestParams => {
     'title': title,
-    'classificationId': classificationId.toString()
+    'classificationId': classificationId.toString(),
+    'gearboxId': gearboxId.toString()
   };
 
   @override
   Map<String, dynamic> get updateRequestParams => {
     //TODO optimize it, need to send only changed field
     'title': title,
-    'classificationId': classificationId.toString()
+    'classificationId': classificationId.toString(),
+    'gearboxId': gearboxId.toString()
   };
+
 }

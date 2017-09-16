@@ -3,10 +3,13 @@ import 'dart:html';
 import 'package:angular2/angular2.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:rentacar_spa/client/components/classification_selector/classification_selector.dart';
+import 'package:rentacar_spa/client/components/gearbox_selector/gearbox_selector.dart';
 import 'package:rentacar_spa/client/services/managers/cars.dart';
 import 'package:rentacar_spa/client/services/managers/classification.dart';
+import 'package:rentacar_spa/client/services/managers/gearbox.dart';
 import 'package:rentacar_spa/interfaces/car.dart';
 import 'package:rentacar_spa/interfaces/classification.dart';
+import 'package:rentacar_spa/interfaces/gearbox.dart';
 
 @Component(
   selector: 'car-row',
@@ -17,7 +20,8 @@ import 'package:rentacar_spa/interfaces/classification.dart';
     FORM_DIRECTIVES,
     MaterialProgressComponent,
     MaterialInputComponent,
-    ClassificationSelectorComponent
+    ClassificationSelectorComponent,
+    GearboxSelectorComponent
   ]
 )
 class CarRowComponent {
@@ -25,6 +29,7 @@ class CarRowComponent {
   final _onDeleteController = new StreamController<ICar>();
   CarManager _carManager;
   ClassificationManager _clsManager;
+  GearboxManager _gearboxManager;
 
   @ViewChild(MaterialInputComponent) MaterialInputComponent input;
 
@@ -32,11 +37,14 @@ class CarRowComponent {
   bool inProgress = false;
 
   IClassification selectedCls;
+  IGearbox selectedGearBox;
 
   List<IClassification> classifications = <IClassification>[];
+  List<IGearbox> gearboxes = <IGearbox>[];
 
-  CarRowComponent(this._carManager, this._clsManager) {
+  CarRowComponent(this._carManager, this._clsManager, this._gearboxManager) {
     _syncClassifications();
+    _syncGearboxes();
   }
 
   @Output('onDeleted') Stream<ICar> get enterPressed => _onDeleteController.stream;
@@ -64,6 +72,11 @@ class CarRowComponent {
     _carManager.update(car);
   }
 
+  void onGearBoxChanged(IGearbox selectedGearbox) {
+    car.gearboxId = selectedGearbox.id;
+    _carManager.update(car);
+  }
+
   Future _updateTitle(String value) async {
     inProgress = true;
     car.title = value;
@@ -81,6 +94,13 @@ class CarRowComponent {
     classifications = await _clsManager.getAll();
     selectedCls = classifications.firstWhere((IClassification cls) =>
       cls.id == car.classificationId,
+      orElse: () => null);
+  }
+
+  Future _syncGearboxes() async {
+    gearboxes = await _gearboxManager.getAll();
+    selectedGearBox = gearboxes.firstWhere((IGearbox gbx) =>
+      gbx.id == car.gearboxId,
       orElse: () => null);
   }
 }

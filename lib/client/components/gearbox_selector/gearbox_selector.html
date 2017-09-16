@@ -1,0 +1,3 @@
+<select [(ngModel)]="selected" (ngModelChange)="onChanged($event)">
+    <option *ngFor="let cls of gearboxes" [ngValue]="cls">{{cls.title}}</option>
+</select>

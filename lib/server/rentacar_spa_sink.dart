@@ -1,6 +1,7 @@
 
 import 'package:rentacar_spa/server/controller/cars_controller.dart';
 import 'package:rentacar_spa/server/controller/classification_controller.dart';
+import 'package:rentacar_spa/server/controller/gearbox_controller.dart';
 import 'package:rentacar_spa/server/controller/root_controller.dart';
 import '../rentacar_spa.dart';
 import 'package:rentacar_spa/urls.dart';
@@ -78,7 +79,9 @@ class RentacarSpaSink extends RequestSink {
       ..route('$CARS[/:carId]')
       .generate(() => new CarsController())
       ..route('$CLASSIFICATIONS[/:classificationId]')
-      .generate(() => new ClassificationController());
+      .generate(() => new ClassificationController())
+      ..route('$GEARBOXES[/:gearboxId]')
+      .generate(() => new GearboxController());
       // ..route("/car/classifications")
       // .generate(() => new ClassificationsController());
       // ..route("/getcars")

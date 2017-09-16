@@ -1,6 +1,6 @@
 const CARS = '/car';
-// const CARS_CREATE = 'car/create';
 const CLASSIFICATIONS = '/classification';
+const GEARBOXES = '/gearbox';
 
 class UrlUtils {
   static const String _hostProtocol = 'http://';
