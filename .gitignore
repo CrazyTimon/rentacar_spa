@@ -17,3 +17,5 @@ error.log
 .aqueductpid
 .aqueductsignal
 api.log*
+pubspec.lock
+.*.*.pid
