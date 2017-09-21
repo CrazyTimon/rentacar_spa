@@ -3,8 +3,11 @@
     <label>Car Name: </label>
     <input [(ngModel)]="newCar.title" placeholder="name">
     <classification-selector
-        (onChange)="onChanged($event)"
+        (onChange)="onClsChanged($event)"
     ></classification-selector>
+    <gearbox-selector
+        (onChange)="onGearBoxChanged($event)"
+    ></gearbox-selector>
   </div>
   <div class="row">
     <material-button (click)="onCreateClick($event)" raised>Add car</material-button>
@@ -42,4 +45,27 @@
       </tr>
     <tbody>
   </table>
+  <div class="row">
+      <label>Gearbox: </label>
+      <input [(ngModel)]="newGearbox.title" placeholder="Gearbox.title">
+    </div>
+
+    <div class="row">
+      <material-button (click)="onCreateGearboxClick($event)" raised>ADD gearbox</material-button>
+      <material-button (click)="onFetchGearboxClick($event)" raised class="red">FETCH gearbox</material-button>
+    </div>
+    <table class="highlight">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let gearbox of gearboxes;">
+          <td>{{gearbox.id}}</td>
+          <td>{{gearbox.title}}</td>
+        </tr>
+      <tbody>
+    </table>
 </div>

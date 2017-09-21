@@ -7,9 +7,8 @@ import 'package:rentacar_spa/interfaces/car.dart';
 @Injectable()
 class CarManager {
   final BaseApi<ICar> _api;
-  final BrowserClient _http;
 
-  CarManager(this._http):
+  CarManager(BrowserClient _http):
     _api = new BaseApi<ICar>(_http);
 
   Future getAll() => _api.getAll();

@@ -20,4 +20,10 @@
         (onChange)="onChanged($event)"
     ></classification-selector>
 </span>
+<span class="cell">
+    <gearbox-selector
+        [selected]="selectedGearBox"
+        (onChange)="onGearBoxChanged($event)"
+    ></gearbox-selector>
+</span>
 <span class="cell delete_button" (click)="onDeleteBtnClick($event)">X</span>

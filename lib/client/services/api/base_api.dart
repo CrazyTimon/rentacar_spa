@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'package:http/src/response.dart';
 import 'package:rentacar_spa/client/models/classification.dart';
+import 'package:rentacar_spa/client/models/gearbox.dart';
 import 'package:rentacar_spa/interfaces/api_entity.dart';
 import 'dart:convert';
 import 'package:http/browser_client.dart';
 import 'package:rentacar_spa/client/models/car.dart';
 import 'package:rentacar_spa/interfaces/car.dart';
 import 'package:rentacar_spa/interfaces/classification.dart';
+import 'package:rentacar_spa/interfaces/gearbox.dart';
 import 'package:rentacar_spa/urls.dart' as urls;
 
 class BaseApi<T extends Entity> {
@@ -53,6 +55,9 @@ class _ApiFactory {
     if (t == IClassification) {
       return new Classification.fromJson(map);
     }
+    if (t == IGearbox) {
+      return new Gearbox.fromJson(map);
+    }
     else return null;
   }
 
@@ -60,9 +65,11 @@ class _ApiFactory {
     if (t == ICar) {
       return urls.UrlUtils.generateUrl(urls.CARS);
     }
-
     if (t == IClassification) {
       return urls.UrlUtils.generateUrl(urls.CLASSIFICATIONS);
+    }
+    if (t == IGearbox) {
+      return urls.UrlUtils.generateUrl(urls.GEARBOXES);
     }
     else return null;
   }
