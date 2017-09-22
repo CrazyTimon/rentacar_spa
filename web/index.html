@@ -1,28 +1,57 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <script>
     // WARNING: DO NOT set the <base href> like this in production!
     // Details: https://webdev.dartlang.org/angular/guide/router
     (function () {
-      var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
-      document.write('<base href="' + (m ? m[0] : '/') + '" />');
+      // App being served out of web folder (like WebStorm does)?
+      var match = document.location.pathname.match(/^\/[-\w]+\/web\//);
+      var href = match ? match[0] : '/';
+      document.write('<base href="' + href + '" />');
     }());
   </script>
 
-  <title>Hello Angular</title>
+  <title>Template Syntax</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css"
+  href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/png" href="favicon.png">
 
   <script defer src="main.dart" type="application/dart"></script>
   <script defer src="packages/browser/dart.js"></script>
+  <style>
+    body {
+      font-family: Roboto,"Helvetica Neue",Arial,Helvetica,sans-serif;
+      max-width: 800px;
+      min-height: 110vh;
+      margin: 40px auto;
+    }
+
+    a:link, a:visited, a:active {
+      color: rgb(66, 133, 244);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: rgb(46, 113, 224);
+      text-decoration: none;
+    }
+
+    hr {
+      border: 0;
+      height: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      color: lightgray;
+      margin: 2em 0;
+    }
+
+  </style>
 </head>
-
 <body>
-  <my-app>Loading...</my-app>
+<my-app>Loading...</my-app>
 </body>
-
 </html>

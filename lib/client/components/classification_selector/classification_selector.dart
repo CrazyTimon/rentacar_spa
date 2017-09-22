@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:angular2/angular2.dart';
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
 import 'package:rentacar_spa/client/services/managers/classification.dart';
 import 'package:rentacar_spa/interfaces/classification.dart';
 
@@ -9,7 +10,7 @@ import 'package:rentacar_spa/interfaces/classification.dart';
   styleUrls: const ['classification_selector.css'],
   directives: const [
     CORE_DIRECTIVES,
-    FORM_DIRECTIVES,
+    formDirectives
   ]
 )
 class ClassificationSelectorComponent {

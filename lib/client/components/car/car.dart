@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:html';
-import 'package:angular2/angular2.dart';
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
 import 'package:rentacar_spa/client/components/car/car_row/car_row.dart';
 import 'package:rentacar_spa/client/components/classification_selector/classification_selector.dart';
 import 'package:rentacar_spa/client/components/gearbox_selector/gearbox_selector.dart';
@@ -21,7 +22,7 @@ import 'package:rentacar_spa/interfaces/gearbox.dart';
   styleUrls: const ['car.css'],
   directives: const [
     CORE_DIRECTIVES,
-    FORM_DIRECTIVES,
+    formDirectives,
     MaterialButtonComponent,
     MaterialFabComponent,
     GlyphComponent,
@@ -31,7 +32,6 @@ import 'package:rentacar_spa/interfaces/gearbox.dart';
   ]
 )
 class CarComponent {
-  ICar newCar = new Car();
   List<ICar> cars = [];
   bool isLoaded = false;
 
@@ -39,8 +39,6 @@ class CarComponent {
   ClassificationManager _clsManager;
   GearboxManager _gearboxManager;
 
-  IClassification newClassification = new Classification();
-  IGearbox newGearbox = new Gearbox();
   List<IClassification> classifications;
   List<IGearbox> gearboxes;
 
@@ -59,36 +57,49 @@ class CarComponent {
     _fetchCars();
   }
 
+  String newCartitle = '';
+
   void onCreateClick(MouseEvent event){
+    Car newCar = new Car(newCartitle, _selectedGearbox, _selectedClassification);
     _addCar(newCar).then((_)=>_fetchCars());
   }
 
+  String newClassificationTitle = '';
+  String newClassificationDescription = '';
   void onCreateClsClick(MouseEvent event){
+    Classification newClassification = new Classification(newClassificationTitle, newClassificationDescription);
     _addCls(newClassification).then((_)=>_fetchClassifications());
   }
 
-  void onCreateGearboxClick(MouseEvent event){
+
+  String newGearboxTitle = '';
+  void onCreateGearboxClick(MouseEvent event) {
+     Gearbox newGearbox = new Gearbox(newGearboxTitle);
     _addGearBox(newGearbox).then((_)=>_fetchGearboxes());
   }
 
-  void onFetchClick(MouseEvent event){
+  void onFetchClick(MouseEvent event) {
     _fetchCars();
   }
 
-  void onFetchClsClick(MouseEvent event){
+  void onFetchClsClick(MouseEvent event) {
     _fetchClassifications();
   }
 
-  void onFetchGearboxClick(MouseEvent event){
+  void onFetchGearboxClick(MouseEvent event) {
     _fetchGearboxes();
   }
 
+  IGearbox _selectedGearbox;
+
   void onGearBoxChanged(IGearbox selectedGearbox) {
-    newCar.gearboxId = selectedGearbox.id;
+    _selectedGearbox = selectedGearbox;
   }
 
+  IClassification _selectedClassification;
+
   void onClsChanged(IClassification selectedCls) {
-    newCar.classificationId = selectedCls.id;
+    _selectedClassification = selectedCls;
   }
 
   Future _fetchCars() async {

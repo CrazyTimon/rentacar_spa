@@ -1,21 +1,24 @@
 import 'dart:async';
-import 'package:angular2/angular2.dart';
+import 'package:angular/angular.dart';
 import 'package:http/browser_client.dart';
+import 'package:rentacar_spa/client/models/car.dart';
 import 'package:rentacar_spa/client/services/api/base_api.dart';
+import 'package:rentacar_spa/client/services/managers/classification.dart';
 import 'package:rentacar_spa/interfaces/car.dart';
+
+//TODO add base MANAGER
 
 @Injectable()
 class CarManager {
-  final BaseApi<ICar> _api;
+  final BaseApi<Car> _api;
 
-  CarManager(BrowserClient _http):
-    _api = new BaseApi<ICar>(_http);
+  CarManager(this._api);
 
-  Future getAll() => _api.getAll();
+  Future<Iterable<ICar>> getAll() => _api.getAll();
 
-  Future add(ICar car) => _api.add(car);
+  Future add(Car car) => _api.add(car);
 
-  Future delete(ICar car) => _api.delete(car);
+  Future delete(Car car) => _api.delete(car);
 
-  Future update(ICar car) => _api.update(car);
+  Future update(Car car) => _api.update(car);
 }

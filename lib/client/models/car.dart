@@ -1,27 +1,31 @@
 import 'package:rentacar_spa/interfaces/car.dart';
+import 'package:rentacar_spa/interfaces/client_entity.dart';
+import 'package:rentacar_spa/interfaces/gearbox.dart';
+import 'package:rentacar_spa/interfaces/classification.dart';
 
-class Car implements ICar {
+class Car implements ICar, ClientEntity {
+
+  Car(this.title, this._gearbox, this._classification, [this.id]);
+
+  int get classificationId => classification.id;
+
+  int get gearboxId => gearbox.id;
 
   @override
-  int classificationId;
-
-  @override
-  Car();
-
-  @override
-  int gearboxId;
-
-  Car.fromJson(Map map) {
-    id = map['id'];
-    title = map['title'];
-    //TODO get from CLS storage
-    if (map['classification'] != null) {
-      classificationId = map['classification']['id'];
-    }
-    if (map['gearbox'] != null) {
-      gearboxId = map['gearbox']['id'];
-    }
+  IClassification get classification => _classification;
+  set classification(IClassification _c){
+    print('set classification');
+    _classification = _c;
   }
+  IClassification _classification;
+
+  @override
+  IGearbox get gearbox => _gearbox;
+  set gearbox(IGearbox _b) {
+    print('set gearbox');
+    _gearbox = _b;
+  }
+  IGearbox _gearbox;
 
   @override
   int id;
@@ -43,5 +47,4 @@ class Car implements ICar {
     'classificationId': classificationId.toString(),
     'gearboxId': gearboxId.toString()
   };
-
 }

@@ -1,12 +1,9 @@
+import 'package:rentacar_spa/interfaces/client_entity.dart';
 import 'package:rentacar_spa/interfaces/gearbox.dart';
 
-class Gearbox extends IGearbox {
+class Gearbox implements IGearbox, ClientEntity {
 
-  Gearbox();
-
-  Gearbox.fromJson(Map map):
-    id = map['id'],
-    title = map['title'];
+  Gearbox(this.title, [this.id]);
 
   @override
   int id;

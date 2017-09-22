@@ -1,0 +1,19 @@
+:host {
+    border: 1px solid;
+    display: block;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+    width: 800px;
+  }
+
+  .controls {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a:link, a:visited, a:active, a:hover{
+    color: #FFFFFF;
+    text-decoration: none;
+  }
