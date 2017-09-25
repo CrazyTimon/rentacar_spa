@@ -1,0 +1,26 @@
+<material-list>
+  <div group class="mat-drawer-spacer"></div>
+  <div group>
+      <material-tree
+          [options]="nestedOptions"
+          [expandAll]="expandAll"
+          [selection]="singleSelection">
+      </material-tree>
+    <div group>
+      <div label>{{selection}}</div>
+      <material-list>
+          <material-list-item>Item 1</material-list-item>
+          <material-list-item>Item 2</material-list-item>
+        </material-list>
+      <material-list-item>
+        Star
+      </material-list-item>
+      <material-list-item>
+        Sent Mail
+      </material-list-item>
+    </div>
+    <material-list-item>
+      Drafts
+    </material-list-item>
+  </div>
+</material-list>
