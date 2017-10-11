@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
+import 'package:angular_router/angular_router.dart';
 import 'package:rentacar_spa/client/models/car.dart';
 import 'package:rentacar_spa/client/models/classification.dart';
 import 'package:rentacar_spa/client/models/gearbox.dart';
@@ -15,7 +16,11 @@ import 'package:rentacar_spa/client/services/managers/gearbox.dart';
   directives: const [
     MaterialListComponent,
     MaterialListItemComponent,
-    MaterialTreeComponent
+    MaterialTreeComponent,
+    MaterialExpansionPanel,
+    MaterialExpansionPanelSet,
+    ROUTER_DIRECTIVES,
+    CORE_DIRECTIVES
   ],
   styleUrls: const [
     'left_menu.css',
@@ -26,13 +31,20 @@ import 'package:rentacar_spa/client/services/managers/gearbox.dart';
 )
 class LeftMenu {
   bool end = false;
-
+// Future<Null> gotoDetail() => _router.navigate([
+//       'HeroDetail',
+//       {'id': selectedHero.id.toString()}
+//     ]);
   CarManager _carManager;
   ClassificationManager _clsManager;
   GearboxManager _gearboxManager;
-  List<Car> _cars = [];
-  List<Classification> _clss = [];
-  List<Gearbox> _gearBoxes = [];
+  List<Car> cars = [];
+  List<Classification> clss = [];
+  List<Gearbox> gearBoxes = [];
+
+  void anytest(dynamic davent) {
+    print(davent);
+  }
 
   final NestedSelectionOptions nestedOptions = new NestedSelectionOptions([
     new OptionGroup(
@@ -83,9 +95,9 @@ class LeftMenu {
   }
 
   Future _fetch() async {
-    _cars = await _carManager.getAll();
-    _clss = await _clsManager.getAll(true);
-    _gearBoxes = await _gearboxManager.getAll(true);
+    cars = await _carManager.getAll();
+    clss = await _clsManager.getAll(true);
+    gearBoxes = await _gearboxManager.getAll(true);
   }
 
   void _generateList() {
@@ -95,21 +107,21 @@ class LeftMenu {
   }
 
   void _generateCarTitles() {
-    List<String> carTitles = _cars.map((Car _c)=>_c.title).toList();
+    List<String> carTitles = cars.map((Car _c)=>_c.title).toList();
     nestedOptions.children['Cars'] = [
       new OptionGroup(carTitles)
     ];
   }
 
   void _generateGearboxTitles() {
-    List<String> gearboxTitles = _gearBoxes.map((Gearbox _c)=>_c.title).toList();
+    List<String> gearboxTitles = gearBoxes.map((Gearbox _c)=>_c.title).toList();
     nestedOptions.children['Gears'] = [
       new OptionGroup(gearboxTitles)
     ];
   }
 
   void _generateClsTitles() {
-    List<String> clsTitles = _clss.map((Classification _c)=>_c.title).toList();
+    List<String> clsTitles = clss.map((Classification _c)=>_c.title).toList();
     nestedOptions.children['Classification'] = [
       new OptionGroup(clsTitles)
     ];
@@ -150,5 +162,9 @@ implements
   DisposableFuture<List<OptionGroup<T>>> childrenOf(T parent, [_]) {
     return new DisposableFuture<List<OptionGroup<T>>>.fromValue(
         children[parent]);
+  }
+
+  void cick(dynamic event) {
+    print('$event');
   }
 }

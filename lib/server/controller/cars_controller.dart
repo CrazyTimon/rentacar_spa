@@ -23,6 +23,20 @@ class CarsController extends HTTPController {
     return new Response.ok(cars);
   }
 
+  @httpGet
+  Future<Response> getCar(@HTTPPath('carId') int id) async {
+    var car;
+    try {
+      var query = new Query<Car>();
+      query.where.id = whereEqualTo(id);
+      car = await query.fetchOne();
+    } catch(exception, stackTrace) {
+      print(exception);
+      print(stackTrace);
+    }
+    return new Response.ok(car);
+  }
+
   @httpPost
   Future<Response> addNewCar(
     @HTTPQuery('title') String title,

@@ -14,7 +14,11 @@
   <left-menu></left-menu>
 </material-drawer>
 <material-content>
-    <header class="material-header shadow">
+    <!-- <nav>
+        <a [routerLink]="['Entities']">cars</a>
+    </nav> -->
+    <router-outlet></router-outlet>
+    <!-- <header class="material-header shadow">
       <div class="material-header-row">
         <material-button icon
                          class="material-drawer-button" (trigger)="drawer.toggle()">
@@ -43,5 +47,5 @@
       <h3>Options</h3>
       <material-toggle [(checked)]="end" label="end">
       </material-toggle>
-    </div>
+    </div> -->
 </material-content>

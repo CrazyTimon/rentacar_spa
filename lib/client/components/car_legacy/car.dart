@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
-import 'package:rentacar_spa/client/components/car/car_row/car_row.dart';
+import 'package:rentacar_spa/client/components/car_legacy/car_row/car_row.dart';
 import 'package:rentacar_spa/client/components/classification_selector/classification_selector.dart';
 import 'package:rentacar_spa/client/components/gearbox_selector/gearbox_selector.dart';
 import 'package:rentacar_spa/client/models/car.dart';
@@ -31,7 +31,7 @@ import 'package:rentacar_spa/interfaces/gearbox.dart';
     GearboxSelectorComponent
   ]
 )
-class CarComponent {
+class LegacyCarComponent {
   List<ICar> cars = [];
   bool isLoaded = false;
 
@@ -42,7 +42,7 @@ class CarComponent {
   List<IClassification> classifications;
   List<IGearbox> gearboxes;
 
-  CarComponent(this._carManager, this._clsManager, this._gearboxManager) {
+  LegacyCarComponent(this._carManager, this._clsManager, this._gearboxManager) {
     _fetchData();
   }
 

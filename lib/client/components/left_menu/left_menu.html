@@ -1,7 +1,40 @@
 <material-list>
   <div group class="mat-drawer-spacer"></div>
   <div group>
+      <material-expansionpanel-set>
+        <material-expansionpanel flat
+        [showSaveCancel]="false"
+        name="Car">
+          <div>
+            <nav>
+                <!-- <a [routerLink]="['Heroes']">Heroes</a> -->
+                <!-- "['HeroDetail', {id: hero.id.toString()}]" -->
+                <a *ngFor="let car of cars" [routerLink]="['Entities', {id: car.id.toString(), entity: 'Car'}]">{{car.title}}</a>
+            </nav>
+          </div>
+        </material-expansionpanel>
+        <material-expansionpanel flat
+        [showSaveCancel]="false"
+        name="Gears">
+          <div>
+            <nav>
+                <a *ngFor="let gearBox of gearBoxes">{{gearBox.title}}</a>
+            </nav>
+          </div>
+        </material-expansionpanel>
+        <material-expansionpanel flat
+        [showSaveCancel]="false"
+        name="Classification">
+          <div>
+            <nav>
+                <!-- <a [routerLink]="['Heroes']">Heroes</a> -->
+                <a *ngFor="let cls of clss">{{cls.title}}</a>
+            </nav>
+          </div>
+        </material-expansionpanel>
+      </material-expansionpanel-set>
       <material-tree
+          (trigger)="anytest($event)"
           [options]="nestedOptions"
           [expandAll]="expandAll"
           [selection]="singleSelection">

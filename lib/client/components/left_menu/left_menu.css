@@ -17,3 +17,23 @@
     color: #FFFFFF;
     text-decoration: none;
   }
+nav {
+  padding-left: 20px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav a {
+  padding-bottom: 15px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: pointer;
+  font-size: 13px;
+  display: block;
+}
+
+nav a:last-child {
+  padding-bottom: 0px;
+}

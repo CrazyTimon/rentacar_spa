@@ -31,6 +31,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  angular_router:
+    description:
+      name: angular_router
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   aqueduct:
     description:
       name: aqueduct
