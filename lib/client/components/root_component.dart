@@ -28,13 +28,12 @@ const String clientPrefix = 'client';
   ],
   providers: const [
     popupBindings,
-    ROUTER_PROVIDERS,
     EntityManager
   ]
 )
 @RouteConfig(const [
   const Route(
-    path: '$clientPrefix/cars/:entity',
+    path: ':entity',
     name: 'Entities',
     component: EntityComponent
     // component: LegacyCarComponent

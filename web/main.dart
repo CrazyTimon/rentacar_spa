@@ -1,5 +1,6 @@
 import 'package:angular/angular.dart';
 import 'package:angular/di.dart';
+import 'package:angular_router/angular_router.dart';
 import 'package:rentacar_spa/client/components/root_component.dart';
 import 'package:http/browser_client.dart';
 import 'package:rentacar_spa/client/models/car.dart';
@@ -22,6 +23,8 @@ void main() {
   BaseApi<Car> carApi = new BaseApi<Car>(browserClient, clsManager, gearboxManager);
   CarManager carManager = new CarManager(carApi);
   bootstrap(AppComponent, [
+    ROUTER_PROVIDERS,
+    provide(APP_BASE_HREF, useValue: '/client'),
     provide(BrowserClient, useFactory: () => browserClient, deps: []),
     provide(CarManager, useFactory: () => carManager, deps: []),
     provide(ClassificationManager, useFactory: () => clsManager, deps: []),

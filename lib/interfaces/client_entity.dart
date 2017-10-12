@@ -5,4 +5,38 @@ abstract class ClientEntity extends Entity {
   Map<String, dynamic> get addRequestParams;
 
   Map<String, dynamic> get updateRequestParams;
+
+  List<EntityField> get fields;
+}
+
+class EntityField {
+  String name;
+  bool isEditable;
+  EntityFieldsType type;
+  EntityFieldValue value;
+
+  EntityField(this.name, this.isEditable, this.type, [this.value]);
+}
+
+enum EntityFieldsType {
+  dorpdown,
+  singleValue,
+  link
+}
+
+abstract class EntityFieldValue {}
+
+class StringEntityFieldValue implements EntityFieldValue {
+  StringEntityFieldValue(this.value);
+  String value;
+}
+
+class IntEntityFieldValue implements EntityFieldValue {
+  IntEntityFieldValue(this.value);
+  int value;
+}
+
+class EntityFieldLinkValue implements EntityFieldValue {
+  EntityFieldLinkValue(this.value);
+  int value;
 }
