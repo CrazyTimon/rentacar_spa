@@ -33,5 +33,5 @@ class ClassificationManager implements BaseManager {
   Future<List<Classification>> fetch() => _api.getAll();
 
   @override
-  Future<Classification> get(int id) => _api.get(id);
+  Future<Classification> get(int id, {bool fetchSubmodels: false}) => _api.get(id);
 }

@@ -13,5 +13,6 @@ abstract class BaseManager {
 
   Future<List<ClientEntity>> fetch();
 
-  Future<ClientEntity> get(int id);
+  //todo тут можно сделать опциональную передачу того, какие модели именно надо фетчить
+  Future<ClientEntity> get(int id, {bool fetchSubmodels: false});
 }

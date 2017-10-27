@@ -1,7 +1,7 @@
 import 'package:rentacar_spa/interfaces/client_entity.dart';
 import 'package:rentacar_spa/interfaces/gearbox.dart';
 
-class Gearbox implements IGearbox, ClientEntity {
+class Gearbox implements IGearbox, ClientEntity, EntityWithTitle {
 
   Gearbox(this.title, [this.id]);
 
@@ -21,4 +21,7 @@ class Gearbox implements IGearbox, ClientEntity {
     'id': id,
     'title': title
   };
+  // TODO: implement fields
+  @override
+  List<EntityField> get fields => null;
 }

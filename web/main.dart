@@ -21,7 +21,7 @@ void main() {
   ClassificationManager clsManager = new ClassificationManager(clsApi);
 
   BaseApi<Car> carApi = new BaseApi<Car>(browserClient, clsManager, gearboxManager);
-  CarManager carManager = new CarManager(carApi);
+  CarManager carManager = new CarManager(carApi, gearboxManager, clsManager);
   bootstrap(AppComponent, [
     ROUTER_PROVIDERS,
     provide(APP_BASE_HREF, useValue: '/client'),

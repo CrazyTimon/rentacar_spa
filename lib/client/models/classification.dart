@@ -1,7 +1,7 @@
 import 'package:rentacar_spa/interfaces/classification.dart';
 import 'package:rentacar_spa/interfaces/client_entity.dart';
 
-class Classification implements IClassification, ClientEntity {
+class Classification implements IClassification, ClientEntity, EntityWithTitle {
 
   Classification(this.title, this.description, [this.id]);
 
@@ -26,4 +26,7 @@ class Classification implements IClassification, ClientEntity {
     'id': id,
     'description': description
   };
+  // TODO: implement fields
+  @override
+  List<EntityField> get fields => null;
 }

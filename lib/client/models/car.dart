@@ -1,10 +1,11 @@
+import 'package:rentacar_spa/client/models/classification.dart';
 import 'package:rentacar_spa/client/models/gearbox.dart';
 import 'package:rentacar_spa/interfaces/car.dart';
 import 'package:rentacar_spa/interfaces/client_entity.dart';
 import 'package:rentacar_spa/interfaces/gearbox.dart';
 import 'package:rentacar_spa/interfaces/classification.dart';
 
-class Car implements ICar, ClientEntity {
+class Car implements ICar, ClientEntity, EntityWithTitle {
 
   Car(String _title, this._gearbox, this._classification, [int _id]){
     title = _title;
@@ -20,6 +21,7 @@ class Car implements ICar, ClientEntity {
   set classification(IClassification _c){
     print('set classification');
     _classification = _c;
+    fields.firstWhere((EntityField f)=> f.name == 'classification').value = new EntityFieldLinkValue(classification.id, Classification);
   }
   IClassification _classification;
 
@@ -70,7 +72,8 @@ class Car implements ICar, ClientEntity {
   List<EntityField> fields = [
     new EntityField('id', false, EntityFieldsType.singleValue),
     new EntityField('title', true, EntityFieldsType.singleValue),
-    new EntityField('gearbox', true, EntityFieldsType.link)
+    new EntityField('gearbox', true, EntityFieldsType.link),
+    new EntityField('classification', true, EntityFieldsType.link)
   ];
 }
 // String title;

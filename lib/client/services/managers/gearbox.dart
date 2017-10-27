@@ -33,5 +33,5 @@ class GearboxManager implements BaseManager {
   Future<List<Gearbox>> fetch() => _api.getAll();
 
   @override
-  Future<Gearbox> get(int id) => _api.get(id);
+  Future<Gearbox> get(int id, {bool fetchSubmodels: false}) => _api.get(id);
 }

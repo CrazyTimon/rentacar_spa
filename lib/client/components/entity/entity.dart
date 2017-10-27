@@ -32,6 +32,9 @@ class EntityComponent implements OnInit {
     String _entity = _routeParams.get('entity');
     int id = int.parse(_id ?? '', onError: (_) => null);
     BaseManager manager = _entityManager.parseEnity(_entity);
-    if (id != null) entity = await (manager.get(id));
+    if (id != null) {
+      entity = await (manager.get(id, fetchSubmodels: true));
+      print('asdasd');
+    }
   }
 }

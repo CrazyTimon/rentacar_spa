@@ -9,6 +9,10 @@ abstract class ClientEntity extends Entity {
   List<EntityField> get fields;
 }
 
+class EntityWithTitle {
+  String title;
+}
+
 class EntityField {
   String name;
   bool isEditable;
@@ -37,6 +41,7 @@ class IntEntityFieldValue implements EntityFieldValue {
 }
 
 class EntityFieldLinkValue implements EntityFieldValue {
-  EntityFieldLinkValue(this.value);
+  EntityFieldLinkValue(this.value, this.entity);
+  Type entity;
   int value;
 }
