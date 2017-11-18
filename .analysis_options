@@ -14,7 +14,6 @@ linter:
     - package_prefixed_library_names
     - prefer_is_not_empty
     - slash_for_doc_comments
-    - super_goes_last
     - type_annotate_public_apis
     - type_init_formals
     - unnecessary_brace_in_string_interp

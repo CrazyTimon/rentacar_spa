@@ -1,13 +1,9 @@
 import 'package:rentacar_spa/interfaces/classification.dart';
+import 'package:rentacar_spa/interfaces/client_entity.dart';
 
-class Classification extends IClassification {
+class Classification implements IClassification, ClientEntity, EntityWithTitle {
 
-  Classification();
-
-  Classification.fromJson(Map map):
-    id = map['id'],
-    title = map['title'],
-    description = map['description'];
+  Classification(this.title, this.description, [this.id]);
 
   @override
   int id;
@@ -30,4 +26,7 @@ class Classification extends IClassification {
     'id': id,
     'description': description
   };
+  // TODO: implement fields
+  @override
+  List<EntityField> get fields => null;
 }

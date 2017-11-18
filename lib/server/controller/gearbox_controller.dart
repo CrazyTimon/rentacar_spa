@@ -21,11 +21,25 @@ class GearboxController extends HTTPController {
   }
 
   @httpGet
-  Future<Response> getGearbox() async {
+  Future<Response> getGearboxes() async {
     var gearbox;
     try {
       var query = new Query<Gearbox>();
       gearbox = await query.fetch();
+    } catch(exception, stackTrace) {
+       print(exception);
+      print(stackTrace);
+    }
+    return new Response.ok(gearbox);
+  }
+
+  @httpGet
+  Future<Response> getGearbox(@HTTPPath('gearboxId') int id) async {
+    var gearbox;
+    try {
+      var query = new Query<Gearbox>();
+      query.where.id = whereEqualTo(id);
+      gearbox = await query.fetchOne();
     } catch(exception, stackTrace) {
        print(exception);
       print(stackTrace);

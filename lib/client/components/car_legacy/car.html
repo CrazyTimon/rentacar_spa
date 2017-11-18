@@ -1,7 +1,7 @@
 <div *ngIf="isLoaded">
   <div class="row">
     <label>Car Name: </label>
-    <input [(ngModel)]="newCar.title" placeholder="name">
+    <input [(ngModel)]="newCartitle" placeholder="name">
     <classification-selector
         (onChange)="onClsChanged($event)"
     ></classification-selector>
@@ -21,8 +21,8 @@
   </div>
   <div class="row">
     <label>Classification: </label>
-    <input [(ngModel)]="newClassification.title" placeholder="Classification.title">
-    <input [(ngModel)]="newClassification.description" placeholder="Classification.description">
+    <input [(ngModel)]="newClassificationTitle" placeholder="Classification.title">
+    <input [(ngModel)]="newClassificationDescription" placeholder="Classification.description">
   </div>
 
   <div class="row">
@@ -47,7 +47,7 @@
   </table>
   <div class="row">
       <label>Gearbox: </label>
-      <input [(ngModel)]="newGearbox.title" placeholder="Gearbox.title">
+      <input [(ngModel)]="newGearboxTitle" placeholder="Gearbox.title">
     </div>
 
     <div class="row">

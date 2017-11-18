@@ -28,7 +28,21 @@ class ClassificationController extends HTTPController {
       var query = new Query<Classification>();
       cls = await query.fetch();
     } catch(exception, stackTrace) {
-       print(exception);
+      print(exception);
+      print(stackTrace);
+    }
+    return new Response.ok(cls);
+  }
+
+  @httpGet
+  Future<Response> getClassification(@HTTPPath('classificationId') int id) async {
+    var cls;
+    try {
+      var query = new Query<Classification>();
+      query.where.id = whereEqualTo(id);
+      cls = await query.fetchOne();
+    } catch(exception, stackTrace) {
+      print(exception);
       print(stackTrace);
     }
     return new Response.ok(cls);

@@ -1,21 +1,42 @@
 import 'dart:async';
-import 'package:angular2/angular2.dart';
-import 'package:http/browser_client.dart';
+import 'package:angular/angular.dart';
+import 'package:http/http.dart';
+import 'package:rentacar_spa/client/interfaces/base_manager.dart';
+import 'package:rentacar_spa/client/models/car.dart';
 import 'package:rentacar_spa/client/services/api/base_api.dart';
-import 'package:rentacar_spa/interfaces/car.dart';
+import 'package:rentacar_spa/client/services/managers/classification.dart';
+import 'package:rentacar_spa/client/services/managers/gearbox.dart';
 
 @Injectable()
-class CarManager {
-  final BaseApi<ICar> _api;
+class CarManager implements BaseManager {
+  final BaseApi<Car> _api;
+  final GearboxManager _gearBoxManager;
+  final ClassificationManager _classificationManager;
 
-  CarManager(BrowserClient _http):
-    _api = new BaseApi<ICar>(_http);
+  CarManager(this._api, this._gearBoxManager, this._classificationManager);
 
-  Future getAll() => _api.getAll();
+  @override
+  Future<List<Car>> getAll([bool fetchData = false]) => _api.getAll();
 
-  Future add(ICar car) => _api.add(car);
+  @override
+  Future<Response> add(covariant Car car) => _api.add(car);
 
-  Future delete(ICar car) => _api.delete(car);
+  @override
+  Future<Response> delete(covariant Car car) => _api.delete(car);
 
-  Future update(ICar car) => _api.update(car);
+  @override
+  Future<Response> update(covariant Car car) => _api.update(car);
+
+  @override
+  Future<List<Car>> fetch() => _api.getAll();
+
+  @override
+  Future<Car> get(int id, {bool fetchSubmodels: false}) async {
+    Car car = await _api.get(id);
+
+    //todo паралельно запрашивать подмодели
+    car.gearbox = await _gearBoxManager.get(car.gearboxId);
+    car.classification = await _classificationManager.get(car.classificationId);
+    return car;
+  }
 }

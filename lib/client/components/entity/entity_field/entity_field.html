@@ -1,0 +1,10 @@
+<template [ngIf]="!isFieldLink">
+    {{field?.value.value}}
+</template>
+<template [ngIf]="isFieldLink">
+    <material-dropdown-select
+        [buttonText]="selectedOption"
+        [itemRenderer]="itemRenderer"
+        [options]="options">
+    </material-dropdown-select>
+</template>

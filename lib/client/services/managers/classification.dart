@@ -1,30 +1,37 @@
 import 'dart:async';
-import 'package:http/browser_client.dart';
 import 'package:http/http.dart';
+import 'package:rentacar_spa/client/interfaces/base_manager.dart';
+import 'package:rentacar_spa/client/models/classification.dart';
 import 'package:rentacar_spa/client/services/api/base_api.dart';
 import 'package:rentacar_spa/interfaces/classification.dart';
 
-class ClassificationManager {
-  final BaseApi<IClassification> _api;
+class ClassificationManager implements BaseManager {
+  final BaseApi<Classification> _api;
 
   List<IClassification> _cache = [];
 
-  ClassificationManager(BrowserClient _http):
-    _api = new BaseApi<IClassification>(_http);
+  ClassificationManager(this._api);
 
-  Future<List<IClassification>> getAll([bool fetchData = false]) async {
+  @override
+  Future<List<Classification>> getAll([bool fetchData = false]) async {
     if (fetchData) {
       _cache = await fetch();
     }
     return _cache;
   }
 
-  Future<Response> add(IClassification cls) => _api.add(cls);
+  @override
+  Future<Response> add(covariant Classification cls) => _api.add(cls);
 
-  Future<Response> delete(IClassification cls) => _api.delete(cls);
+  @override
+  Future<Response> delete(covariant Classification cls) => _api.delete(cls);
 
-  Future<Response> update(IClassification cls) => _api.update(cls);
+  @override
+  Future<Response> update(covariant Classification cls) => _api.update(cls);
 
-  Future<List<IClassification>> fetch() => _api.getAll();
+  @override
+  Future<List<Classification>> fetch() => _api.getAll();
 
+  @override
+  Future<Classification> get(int id, {bool fetchSubmodels: false}) => _api.get(id);
 }

@@ -1,5 +1,5 @@
 import 'package:rentacar_spa/interfaces/entity.dart';
 
-abstract class IGearbox  extends Entity {
+abstract class IRentDuration extends Entity {
   String title;
 }

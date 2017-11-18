@@ -1,7 +1,9 @@
-import 'package:rentacar_spa/interfaces/api_entity.dart';
+import 'package:rentacar_spa/interfaces/classification.dart';
+import 'package:rentacar_spa/interfaces/entity.dart';
+import 'package:rentacar_spa/interfaces/gearbox.dart';
 
 abstract class ICar extends Entity {
   String title;
-  int classificationId;
-  int gearboxId;
+  IGearbox get gearbox;
+  IClassification get classification;
 }

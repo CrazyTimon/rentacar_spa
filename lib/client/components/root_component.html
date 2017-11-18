@@ -1,11 +1,51 @@
- <div class="row">
+ <!-- <div class="row">
 
     <div class="col s3">
-    <!-- Grey navigation panel -->
+
     </div>
 
     <div class="col s9">
-        <car-management></car-management>   
+        <car-management></car-management>
     </div>
 
-</div>
+</div> -->
+
+<material-drawer persistent #drawer="drawer" [attr.end]="end ? '' : null">
+  <left-menu></left-menu>
+</material-drawer>
+<material-content>
+    <!-- <nav>
+        <a [routerLink]="['Entities']">cars</a>
+    </nav> -->
+    <router-outlet></router-outlet>
+    <!-- <header class="material-header shadow">
+      <div class="material-header-row">
+        <material-button icon
+                         class="material-drawer-button" (trigger)="drawer.toggle()">
+          <material-icon icon="menu"></material-icon>
+        </material-button>
+        <span class="material-header-title">Simple Layout</span>
+        <div class="material-spacer"></div>
+        <nav class="material-navigation">
+          <a href="#AppLayout">Link 1</a>
+        </nav>
+        <nav class="material-navigation">
+          <a href="#AppLayout">Link 2</a>
+        </nav>
+        <nav class="material-navigation">
+          <a href="#AppLayout">Link 3</a>
+        </nav>
+      </div>
+    </header>
+    <div>
+      Lorem ipsum dolor sit amet, ad erat postea ullamcorper nec, veri veniam quo
+      et. Diam phaedrum ei mea, quaeque voluptaria efficiantur duo no. Eu adhuc
+      veritus civibus nec, sumo invidunt mel id, in vim dictas detraxit. Per an
+      legere iriure blandit. Veri iisque accusamus an pri.
+    </div>
+    <div class="controls">
+      <h3>Options</h3>
+      <material-toggle [(checked)]="end" label="end">
+      </material-toggle>
+    </div> -->
+</material-content>

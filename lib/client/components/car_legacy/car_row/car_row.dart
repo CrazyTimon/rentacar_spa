@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:html';
-import 'package:angular2/angular2.dart';
+import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
+import 'package:angular_forms/angular_forms.dart';
 import 'package:rentacar_spa/client/components/classification_selector/classification_selector.dart';
 import 'package:rentacar_spa/client/components/gearbox_selector/gearbox_selector.dart';
+import 'package:rentacar_spa/client/models/car.dart';
 import 'package:rentacar_spa/client/services/managers/cars.dart';
 import 'package:rentacar_spa/client/services/managers/classification.dart';
 import 'package:rentacar_spa/client/services/managers/gearbox.dart';
@@ -17,7 +19,7 @@ import 'package:rentacar_spa/interfaces/gearbox.dart';
   styleUrls: const ['car_row.css'],
   directives: const [
     CORE_DIRECTIVES,
-    FORM_DIRECTIVES,
+    formDirectives,
     MaterialProgressComponent,
     MaterialInputComponent,
     ClassificationSelectorComponent,
@@ -48,7 +50,7 @@ class CarRowComponent {
   }
 
   @Output('onDeleted') Stream<ICar> get enterPressed => _onDeleteController.stream;
-  @Input() ICar car;
+  @Input() Car car;
 
   void onDeleteBtnClick(MouseEvent event) {
     _deleteCar();
@@ -68,12 +70,14 @@ class CarRowComponent {
   }
 
   void onChanged(IClassification selectedCls) {
-    car.classificationId = selectedCls.id;
+    // car.classificationId = selectedCls.id;
+    car.classification = selectedCls;
     _carManager.update(car);
   }
 
   void onGearBoxChanged(IGearbox selectedGearbox) {
-    car.gearboxId = selectedGearbox.id;
+    // car.gearboxId = selectedGearbox.id;
+    car.gearbox = selectedGearbox;
     _carManager.update(car);
   }
 
