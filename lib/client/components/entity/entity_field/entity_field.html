@@ -3,8 +3,9 @@
 </template>
 <template [ngIf]="isFieldLink">
     <material-dropdown-select
-        [buttonText]="selectedOption"
+        [buttonText]="selectionLabel"
         [itemRenderer]="itemRenderer"
+        [selection]="singleSelectModel"
         [options]="options">
     </material-dropdown-select>
 </template>

@@ -21,17 +21,20 @@ class EntityFieldComponent implements AfterViewInit {
   @Input()
   EntityField field;
 
-  ItemRenderer<ClientEntity> itemRenderer =
-      new CachingItemRenderer<ClientEntity>(
-          (entity) => (entity as EntityWithTitle).title);
+  ItemRenderer<EntityWithTitle> itemRenderer = new CachingItemRenderer<EntityWithTitle>((entity) => entity.title);
+
+  SelectionModel<EntityWithTitle> singleSelectModel = new SelectionModel<EntityWithTitle>.withList();
+
+  String get selectionLabel =>
+      singleSelectModel.selectedValues.length > 0
+          ? itemRenderer(singleSelectModel.selectedValues.first)
+          : '';
 
   EntityFieldComponent(this._entityManager);
 
   bool get isFieldLink => field.type == EntityFieldsType.link;
 
   SelectionOptions options = new SelectionOptions.fromList([]);
-
-  String selectedOption = '';
 
   @override
   void ngAfterViewInit() {
@@ -41,29 +44,16 @@ class EntityFieldComponent implements AfterViewInit {
   Future<Null> _init() async {
     if (field.type == EntityFieldsType.link) {
       EntityFieldLinkValue value = field.value as EntityFieldLinkValue;
-      //todo переделать, надод доставать все возможные значения для дропдауна
+      //todo переделать, надо доставать все возможные значения для дропдауна
       EntityWithTitle entity = await _entityManager.getEntity(value.entity, value.value) as EntityWithTitle;
-      selectedOption = entity.title;
       BaseManager entityManager = _entityManager.getEntityManager(value.entity);
       List<ClientEntity> availableOptions = await entityManager.getAll();
+      singleSelectModel = new SelectionModel<EntityWithTitle>.withList(selectedValues: [entity]);
       options = new SelectionOptions.fromList(availableOptions);
+
+      singleSelectModel.changes.listen((asfsaf){
+        print(asfsaf);
+      });
     }
   }
-}
-
-// If the option does not support toString() that shows the label, the
-// toFilterableString parameter must be passed to StringSelectionOptions.
-class ExampleSelectionOptions<T> extends StringSelectionOptions<T> implements Selectable {
-  ExampleSelectionOptions(List<T> options)
-      : super(options, toFilterableString: (T option) => option.toString());
-
-  ExampleSelectionOptions.withOptionGroups(List<OptionGroup> optionGroups)
-      : super.withOptionGroups(optionGroups,
-            toFilterableString: (T option) => option.toString());
-
-  @override
-  SelectableOption getSelectable(item) =>
-      item is Language && item.code.contains('en')
-          ? SelectableOption.Disabled
-          : SelectableOption.Selectable;
 }
