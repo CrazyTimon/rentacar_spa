@@ -17,6 +17,7 @@ class EntityField {
   String name;
   bool isEditable;
   EntityFieldsType type;
+  //возможно лишнее, т.к. филд не может содержать значения кмк
   EntityFieldValue value;
 
   EntityField(this.name, this.isEditable, this.type, [this.value]);
@@ -43,5 +44,6 @@ class IntEntityFieldValue implements EntityFieldValue {
 class EntityFieldLinkValue implements EntityFieldValue {
   EntityFieldLinkValue(this.value, this.entity);
   Type entity;
+  //todo похоже на то что название не соответствует действительности, т.к. это по сути id сущности которая содержит списки значений
   int value;
 }

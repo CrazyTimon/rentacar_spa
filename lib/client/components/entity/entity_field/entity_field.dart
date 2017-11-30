@@ -18,8 +18,14 @@ import 'package:rentacar_spa/interfaces/client_entity.dart';
 class EntityFieldComponent implements AfterViewInit {
   final EntityManager _entityManager;
 
+  EntityFieldComponent(this._entityManager);
+
   @Input()
   EntityField field;
+
+  final StreamController<ValueChangeEvent> _changeController = new StreamController<ValueChangeEvent>.broadcast();
+  @Output()
+  Stream<ValueChangeEvent> get valueChange => _changeController.stream;
 
   ItemRenderer<EntityWithTitle> itemRenderer = new CachingItemRenderer<EntityWithTitle>((entity) => entity.title);
 
@@ -30,11 +36,11 @@ class EntityFieldComponent implements AfterViewInit {
           ? itemRenderer(singleSelectModel.selectedValues.first)
           : '';
 
-  EntityFieldComponent(this._entityManager);
-
   bool get isFieldLink => field.type == EntityFieldsType.link;
 
   SelectionOptions options = new SelectionOptions.fromList([]);
+
+  BaseManager entityManager;
 
   @override
   void ngAfterViewInit() {
@@ -46,14 +52,30 @@ class EntityFieldComponent implements AfterViewInit {
       EntityFieldLinkValue value = field.value as EntityFieldLinkValue;
       //todo переделать, надо доставать все возможные значения для дропдауна
       EntityWithTitle entity = await _entityManager.getEntity(value.entity, value.value) as EntityWithTitle;
-      BaseManager entityManager = _entityManager.getEntityManager(value.entity);
+      entityManager = _entityManager.getEntityManager(value.entity);
       List<ClientEntity> availableOptions = await entityManager.getAll();
-      singleSelectModel = new SelectionModel<EntityWithTitle>.withList(selectedValues: [entity]);
-      options = new SelectionOptions.fromList(availableOptions);
 
-      singleSelectModel.changes.listen((asfsaf){
-        print(asfsaf);
-      });
+      singleSelectModel.select(entity);
+      options.optionGroups = <OptionGroup<ClientEntity>>[new OptionGroup<ClientEntity>.withLabel(availableOptions)];
+      // options.optionsList.add(availableOptions);
+
+      scheduleMicrotask(_listenSelectionChange);
     }
   }
+
+  void _listenSelectionChange(){
+    singleSelectModel.selectionChanges.listen((List<SelectionChangeRecord<EntityWithTitle>> records){
+      // entityManager.fetch()
+      print(field);
+      _changeController.add(new ValueChangeEvent(field, records.first.added.first););
+      print(records.first);
+    });
+  }
+}
+
+class ValueChangeEvent {
+  final EntityField field;
+  final EntityWithTitle value;
+
+  ValueChangeEvent(this.field, this.value);
 }

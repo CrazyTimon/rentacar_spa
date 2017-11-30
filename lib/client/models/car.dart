@@ -19,7 +19,6 @@ class Car implements ICar, ClientEntity, EntityWithTitle {
   @override
   IClassification get classification => _classification;
   set classification(IClassification _c){
-    print('set classification');
     _classification = _c;
     fields.firstWhere((EntityField f)=> f.name == 'classification').value = new EntityFieldLinkValue(classification.id, Classification);
   }
@@ -28,7 +27,6 @@ class Car implements ICar, ClientEntity, EntityWithTitle {
   @override
   IGearbox get gearbox => _gearbox;
   set gearbox(IGearbox _b) {
-    print('set gearbox');
     _gearbox = _b;
     fields.firstWhere((EntityField f)=> f.name == 'gearbox').value = new EntityFieldLinkValue(gearbox.id, Gearbox);
   }

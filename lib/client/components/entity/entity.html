@@ -1,3 +1,6 @@
 <span *ngFor="let field of entity?.fields">
-    <entity-field [field]="field"></entity-field>
+    <entity-field
+    [field]="field"
+    (valueChange)="handleFieldChange($event)"
+    ></entity-field>
 </span>

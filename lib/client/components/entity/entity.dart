@@ -24,6 +24,8 @@ class EntityComponent implements OnInit {
   @Input()
   ClientEntity entity;
 
+  BaseManager _manager;
+
   EntityComponent(this._routeParams, this._entityManager);
 
   @override
@@ -31,10 +33,17 @@ class EntityComponent implements OnInit {
     String _id = _routeParams.get('id');
     String _entity = _routeParams.get('entity');
     int id = int.parse(_id ?? '', onError: (_) => null);
-    BaseManager manager = _entityManager.parseEnity(_entity);
+    _manager = _entityManager.parseEnity(_entity);
     if (id != null) {
-      entity = await (manager.get(id, fetchSubmodels: true));
-      print('asdasd');
+      entity = await (_manager.get(id, fetchSubmodels: true));
     }
+  }
+
+  void handleFieldChange(ValueChangeEvent e) {
+    // entity.fields
+    // _manager.update(cls)
+    //todo должно сравниваться не по name, а напрямую f == e.field
+    entity.fields.firstWhere((EntityField f) => f.name == e.field.name)
+    _manager.update(e.field)
   }
 }
