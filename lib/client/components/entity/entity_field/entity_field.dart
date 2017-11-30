@@ -67,7 +67,7 @@ class EntityFieldComponent implements AfterViewInit {
     singleSelectModel.selectionChanges.listen((List<SelectionChangeRecord<EntityWithTitle>> records){
       // entityManager.fetch()
       print(field);
-      _changeController.add(new ValueChangeEvent(field, records.first.added.first););
+      _changeController.add(new ValueChangeEvent(field, records.first.added.first));
       print(records.first);
     });
   }
